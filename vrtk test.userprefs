@@ -1,0 +1,22 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\VRTK\Examples\Resources\Scripts\Archery\BowAim.cs">
+    <Files>
+      <File FileName="Assets\VRTK\SDK\SteamVR\VRTK_SDK_Bridge.cs" Line="1" Column="1" />
+      <File FileName="Assets\Rotate.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_InteractUse.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\BowAnimation.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\ArrowNotch.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\Arrow.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\ArrowSpawner.cs" Line="33" Column="165" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_InteractGrab.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_ControllerEvents.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_InteractTouch.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\BowAim.cs" Line="137" Column="31" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
