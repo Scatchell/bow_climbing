@@ -8,12 +8,49 @@
       <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\BowAnimation.cs" Line="1" Column="1" />
       <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\ArrowNotch.cs" Line="1" Column="1" />
       <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\Arrow.cs" Line="1" Column="1" />
-      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\ArrowSpawner.cs" Line="33" Column="165" />
-      <File FileName="Assets\VRTK\Scripts\VRTK_InteractGrab.cs" Line="1" Column="1" />
-      <File FileName="Assets\VRTK\Scripts\VRTK_ControllerEvents.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\ArrowSpawner.cs" Line="23" Column="61" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_InteractGrab.cs" Line="338" Column="127" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_ControllerEvents.cs" Line="41" Column="5" />
       <File FileName="Assets\VRTK\Scripts\VRTK_InteractTouch.cs" Line="1" Column="1" />
-      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\BowAim.cs" Line="137" Column="31" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Archery\BowAim.cs" Line="45" Column="10" />
+      <File FileName="Assets\BowStorage.cs" Line="16" Column="14" />
+      <File FileName="Assets\VRTK\Scripts\Helper\UnityEvents\VRTK_InteractGrab_UnityEvents.cs" Line="1" Column="1" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_HeadsetCollisionFade.cs" Line="28" Column="42" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_HeadsetCollision.cs" Line="111" Column="108" />
+      <File FileName="Assets\VRTK\Scripts\VRTK_HeadsetFade.cs" Line="143" Column="14" />
+      <File FileName="Assets\VRTK\Examples\Resources\Scripts\Add_HeadsetCollisionFade.cs" Line="17" Column="21" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="vrtk test" expanded="True">
+            <Node name="Assembly-CSharp" expanded="True">
+              <Node name="VRTK" expanded="True">
+                <Node name="Examples" expanded="True">
+                  <Node name="Resources" expanded="True">
+                    <Node name="Scripts" expanded="True">
+                      <Node name="Archery" expanded="True">
+                        <Node name="BowAim.cs" selected="True" />
+                      </Node>
+                    </Node>
+                  </Node>
+                </Node>
+                <Node name="Scripts" expanded="True">
+                  <Node name="Helper" expanded="True">
+                    <Node name="UnityEvents" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State name="__root__">
+          <Node name="vrtk test" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

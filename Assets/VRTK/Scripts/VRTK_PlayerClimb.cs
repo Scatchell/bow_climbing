@@ -54,7 +54,6 @@ namespace VRTK
         private bool isClimbing = false;
         private VRTK_PlayerPresence playerPresence;
         private VRTK_HeadsetCollision headsetCollision;
-        private VRTK_HeadsetFade headsetFade;
         private GameObject climbingObject;
 
         private void OnPlayerClimbStarted(PlayerClimbEventArgs e)
@@ -102,11 +101,11 @@ namespace VRTK
                 headsetCollision = headCamera.gameObject.AddComponent<VRTK_HeadsetCollision>();
             }
 
-            headsetFade = headCamera.GetComponent<VRTK_HeadsetFade>();
-            if (headsetFade == null)
-            {
-                headsetFade = headCamera.gameObject.AddComponent<VRTK_HeadsetFade>();
-            }
+            //headsetFade = headCamera.GetComponent<VRTK_HeadsetFade>();
+            //if (headsetFade == null)
+            //{
+                //headsetFade = headCamera.gameObject.AddComponent<VRTK_HeadsetFade>();
+            //}
         }
 
         private void OnEnable()
@@ -205,13 +204,13 @@ namespace VRTK
 
         private void OnHeadsetCollisionDetected(object sender, HeadsetCollisionEventArgs e)
         {
-            headsetFade.Fade(Color.black, 0.1f);
+            //headsetFade.Fade(Color.black, 0.1f);
             headsetColliding = true;
         }
 
         private void OnHeadsetCollisionEnded(object sender, HeadsetCollisionEventArgs e)
         {
-            headsetFade.Unfade(0.1f);
+            //headsetFade.Unfade(0.1f);
             headsetColliding = false;
         }
 
