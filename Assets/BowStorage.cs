@@ -12,30 +12,61 @@ namespace VRTK.Examples.Archery
 
 		void Update() {
 		}
+
 		// Update is called once per frame
 		void OnTriggerStay(Collider other) {
-			if (other.gameObject.CompareTag ("Bow")) {
+			if (other.gameObject.CompareTag ("Controller") && ControllerTriggerPressed(other.gameObject.GetComponent<VRTK_InteractGrab>()) && HasBowAsChild()) {
+				VRTK_InteractGrab controller = other.gameObject.GetComponent<VRTK_InteractGrab>();
+
+				GameObject childBow = ChildBow ();
+				UnStore (childBow);
+			} else if (other.gameObject.CompareTag ("Bow")) {
 				GameObject bow = other.gameObject;
 
 				bool bowBeingHeld = bow.GetComponent<BowAim> ().IsHeld ();
 				VRTK_InteractGrab grabbingController = (bow.GetComponent<VRTK_InteractGrab>() ? bow.GetComponent<VRTK_InteractGrab>() : bow.GetComponentInParent<VRTK_InteractGrab>());
 
-				if (grabbingController && grabbingController.gameObject.GetComponent<VRTK_ControllerEvents>().triggerPressed && !stored) {
-					grabbingController.ForceRelease();
+				if (ControllerTriggerPressed (grabbingController)) {
+					if (!stored) {
+						grabbingController.ForceRelease ();
 
-					bow.GetComponent<VRTK_InteractableObject>().ToggleKinematic(true);
-					bow.transform.parent = gameObject.transform;
+						Store (bow);
 
-					stored = true;
-
-					Debug.Log ("Inside storage");
+						Debug.Log ("Inside storage");
+					}
 				}
 			}
+		}
+
+		private void UnStore (GameObject bow)
+		{
+			bow.transform.parent = null;
+			bow.GetComponent<VRTK_InteractableObject> ().ToggleKinematic (false);
+			bow.GetComponent<VRTK_InteractableObject> ().isGrabbable = true;
+			stored = false;
+		}
+
+		private void Store (GameObject bow)
+		{
+			bow.GetComponent<VRTK_InteractableObject> ().ToggleKinematic (true);
+			bow.GetComponent<VRTK_InteractableObject> ().isGrabbable = false;
+			bow.transform.parent = gameObject.transform;
+			stored = true;
+		}
+
+		private static bool ControllerTriggerPressed (VRTK_InteractGrab grabbingController)
+		{
+			return grabbingController && grabbingController.gameObject.GetComponent<VRTK_ControllerEvents> ().triggerPressed;
 		}
 
 		private bool HasBowAsChild()
 		{
 			return (gameObject.transform.FindChild("BasicBow") != null);
+		}
+
+		private GameObject ChildBow()
+		{
+			return gameObject.transform.FindChild("BasicBow").gameObject;
 		}
 
 		void OnTriggerExit(Collider other) {
