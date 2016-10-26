@@ -687,6 +687,7 @@ namespace VRTK
 
         private void EmitAlias(ButtonAlias type, bool touchDown, float buttonPressure, ref bool buttonBool)
         {
+			
             if (pointerToggleButton == type)
             {
                 if (touchDown)
@@ -723,7 +724,7 @@ namespace VRTK
                 }
             }
 
-            if (useToggleButton == type)
+			if (useToggleButton == type || ButtonAlias.Touchpad_Press == type)
             {
                 if (touchDown)
                 {

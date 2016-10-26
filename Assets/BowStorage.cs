@@ -1,41 +1,52 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace VRTK.Examples.Archery
+namespace VRTK.Examples
 {
-	public class BowStorage : MonoBehaviour {
-		public bool stored = false;
-		// Use this for initialization
-		void Start () {
-			
+	public class BowStorage : VRTK_InteractableObject
+	{
+		private bool stored = false;
+
+		protected override void Start()
+		{
+			base.Start ();
 		}
 
-		void Update() {
-		}
+		public override void StartUsing (GameObject usingObject)
+		{
+			Debug.Log ("using..........");
+			Debug.Log (usingObject);
+			base.StartUsing (usingObject);
 
-		// Update is called once per frame
-		void OnTriggerStay(Collider other) {
-			if (other.gameObject.CompareTag ("Controller") && ControllerTriggerPressed(other.gameObject.GetComponent<VRTK_InteractGrab>()) && HasBowAsChild()) {
-				VRTK_InteractGrab controller = other.gameObject.GetComponent<VRTK_InteractGrab>();
+			if (usingObject.CompareTag ("GameController")) {
+				VRTK_InteractGrab controller = usingObject.GetComponent<VRTK_InteractGrab> ();
 
-				GameObject childBow = ChildBow ();
-				UnStore (childBow);
-			} else if (other.gameObject.CompareTag ("Bow")) {
-				GameObject bow = other.gameObject;
+				if (HasBowAsChild ()) {
+					GameObject childBow = ChildBow ();
+					UnStore (childBow);
+					controller.AttemptGrab ();
+				} else if (!HasBowAsChild () && !stored && usingObject.transform.FindChild ("BasicBow") != null) {
+					GameObject bow = usingObject.transform.FindChild ("BasicBow").gameObject;
 
-				bool bowBeingHeld = bow.GetComponent<BowAim> ().IsHeld ();
-				VRTK_InteractGrab grabbingController = (bow.GetComponent<VRTK_InteractGrab>() ? bow.GetComponent<VRTK_InteractGrab>() : bow.GetComponentInParent<VRTK_InteractGrab>());
+					controller.ForceRelease ();
+					Store (bow);
 
-				if (ControllerTriggerPressed (grabbingController)) {
-					if (!stored) {
-						grabbingController.ForceRelease ();
-
-						Store (bow);
-
-						Debug.Log ("Inside storage");
-					}
+					Debug.Log ("Inside storage");
 				}
 			}
+
+			base.StopUsing (usingObject);
+		}
+
+		public override void StopUsing (GameObject previousUsingObject)
+		{
+			Debug.Log ("No longer being used...");
+			base.StopUsing (previousUsingObject);
+		}
+
+		protected override void Update()
+		{
+			base.Update ();
 		}
 
 		private void UnStore (GameObject bow)
@@ -59,30 +70,42 @@ namespace VRTK.Examples.Archery
 			return grabbingController && grabbingController.gameObject.GetComponent<VRTK_ControllerEvents> ().triggerPressed;
 		}
 
-		private bool HasBowAsChild()
+		private bool HasBowAsChild ()
 		{
-			return (gameObject.transform.FindChild("BasicBow") != null);
+			return (gameObject.transform.FindChild ("BasicBow") != null);
 		}
 
-		private GameObject ChildBow()
+		private GameObject ChildBow ()
 		{
-			return gameObject.transform.FindChild("BasicBow").gameObject;
-		}
-
-		void OnTriggerExit(Collider other) {
-			if (other.gameObject.CompareTag ("Bow")) {
-				GameObject bow = other.gameObject;
-				VRTK_InteractGrab grabbingController = (bow.GetComponent<VRTK_InteractGrab>() ? bow.GetComponent<VRTK_InteractGrab>() : bow.GetComponentInParent<VRTK_InteractGrab>());
-
-				if (grabbingController != null && stored)
-				{
-					//bow.transform.parent = null;
-					//bow.GetComponent<VRTK_InteractableObject>().ToggleKinematic(false);
-					stored = false;
-
-					Debug.Log ("Released from storage");
-				}
-			}
+			return gameObject.transform.FindChild ("BasicBow").gameObject;
 		}
 	}
 }
+	
+
+//void OnTriggerStay(Collider other) {
+//	VRTK_InteractGrab grabbingController = getGrabbingController (other);
+//	if (grabbingController != null && ControllerTriggerPressed(grabbingController) && stored && ChildBow().GetComponent<VRTK_InteractableObject>().IsTouched() && Time.time >= storeDelayTimer) {
+//		Debug.Log ("Releasing....");
+//		GameObject childBow = ChildBow ();
+//		UnStore (childBow);
+//		grabbingController.AttemptGrab ();
+//		storeDelayTimer = Time.time + storeDelay;
+//	} else if (other.gameObject.CompareTag ("Bow") && Time.time >= storeDelayTimer) {
+//		GameObject bow = other.gameObject;
+//
+//		bool bowBeingHeld = bow.GetComponent<BowAim> ().IsHeld ();
+//
+//		if (ControllerTriggerPressed (grabbingController)) {
+//			if (!stored) {
+//				grabbingController.ForceRelease ();
+//
+//				Store (bow);
+//
+//				storeDelayTimer = Time.time + storeDelay;
+//
+//				Debug.Log ("Inside storage");
+//			}
+//		}
+//	}
+//}

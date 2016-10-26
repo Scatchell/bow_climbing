@@ -5,6 +5,7 @@
     public class ArrowSpawner : MonoBehaviour
     {
         public GameObject arrowPrefab;
+		public GameObject originalBow;
         public float spawnDelay = 1f;
 
         private float spawnDelayTimer = 0f;
@@ -18,14 +19,18 @@
         private void OnTriggerStay(Collider collider)
         {
             VRTK_InteractGrab grabbingController = (collider.gameObject.GetComponent<VRTK_InteractGrab>() ? collider.gameObject.GetComponent<VRTK_InteractGrab>() : collider.gameObject.GetComponentInParent<VRTK_InteractGrab>());
-            if (CanGrab(grabbingController) && NoArrowNotched(grabbingController.gameObject) && Time.time >= spawnDelayTimer)
-            {
-                GameObject newArrow = Instantiate(arrowPrefab);
-                newArrow.name = "ArrowClone";
-                grabbingController.gameObject.GetComponent<VRTK_InteractTouch>().ForceTouch(newArrow);
-                grabbingController.AttemptGrab();
-                spawnDelayTimer = Time.time + spawnDelay;
-            }
+			if (CanGrab (grabbingController) && NoArrowNotched (grabbingController.gameObject) && Time.time >= spawnDelayTimer && VRTK_SDK_Bridge.IsControllerRightHand (grabbingController.gameObject)) {
+				GameObject newArrow = Instantiate (arrowPrefab);
+				newArrow.name = "ArrowClone";
+				grabbingController.gameObject.GetComponent<VRTK_InteractTouch> ().ForceTouch (newArrow);
+				grabbingController.AttemptGrab ();
+				spawnDelayTimer = Time.time + spawnDelay;
+			} else if (CanGrab (grabbingController) && Time.time >= spawnDelayTimer && VRTK_SDK_Bridge.IsControllerLeftHand (grabbingController.gameObject)) {
+				grabbingController.gameObject.GetComponent<VRTK_InteractTouch>().ForceTouch(originalBow);
+				grabbingController.AttemptGrab();
+
+				spawnDelayTimer = Time.time + spawnDelay;
+			}
         }
 
         private bool CanGrab(VRTK_InteractGrab grabbingController)

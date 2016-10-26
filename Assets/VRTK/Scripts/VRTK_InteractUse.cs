@@ -224,6 +224,7 @@ namespace VRTK
         private void DoStartUseObject(object sender, ControllerInteractionEventArgs e)
         {
             GameObject touchedObject = interactTouch.GetTouchedObject();
+
             if (touchedObject == null)
             {
                 touchedObject = GetFromGrab();

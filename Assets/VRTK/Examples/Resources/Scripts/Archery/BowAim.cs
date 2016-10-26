@@ -59,8 +59,11 @@
             interact.InteractableObjectGrabbed += new InteractableObjectEventHandler(DoObjectGrab);
         }
 
-        private void DoObjectGrab(object sender, InteractableObjectEventArgs e)
+		public void DoObjectGrab(object sender, InteractableObjectEventArgs e)
         {
+			Debug.Log (e.interactingObject);
+			Debug.Log (VRTK_SDK_Bridge.IsControllerLeftHand (e.interactingObject));
+
             if (VRTK_SDK_Bridge.IsControllerLeftHand(e.interactingObject))
             {
                 holdControl = VRTK_DeviceFinder.GetControllerLeftHand().GetComponent<VRTK_ControllerEvents>();
@@ -71,6 +74,8 @@
             }
             else
             {
+				Debug.Log ("string control will be: ");
+				Debug.Log (VRTK_DeviceFinder.GetControllerLeftHand ().GetComponent<VRTK_ControllerEvents> ());
                 stringControl = VRTK_DeviceFinder.GetControllerLeftHand().GetComponent<VRTK_ControllerEvents>();
                 holdControl = VRTK_DeviceFinder.GetControllerRightHand().GetComponent<VRTK_ControllerEvents>();
 
@@ -162,7 +167,13 @@
 
         private void AimBow()
         {
-            transform.rotation = Quaternion.LookRotation(holdControl.transform.position - stringControl.transform.position, holdControl.transform.TransformDirection(Vector3.forward));
+			Debug.Log ("string control will be: ");
+
+			var stringPosition = stringControl.transform.position;
+			var holdPosition = holdControl.transform.position;
+            transform.rotation = Quaternion.LookRotation(holdPosition
+			- stringPosition, 
+				holdControl.transform.TransformDirection(Vector3.forward));
         }
 
         private void PullString()
